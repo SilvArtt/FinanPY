@@ -1,6 +1,6 @@
 from core.balance import check_balance
 from core.transaction import *
-
+from utils.formatters import get_valid_option
 isRunning = True
 
 if __name__ == '__main__':
@@ -14,7 +14,7 @@ if __name__ == '__main__':
        print("[0] Sair")
        print("=" * 32)
 
-       op = int(input("Escolha uma Opção [1] a [3], [0] para sair: "))
+       op = get_valid_option()
 
        match op:
            case 1:
@@ -35,3 +35,5 @@ if __name__ == '__main__':
                isRunning = False
            case _:
                print("Erro, Selecione de [0] a [3].")
+
+
