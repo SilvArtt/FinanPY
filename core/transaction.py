@@ -1,9 +1,11 @@
-transactions = []
+from core.json import load_data,save_data
+from utils.formatters import *
+transactions = load_data()
 
 def add_transaction():
-    description = input("descreva sua transação: ")
-    transaction_type = input("Digite o tipo (R para Receita / D para Despesa): ").upper().strip()
-    amount = float(input("Digite o valor: "))
+    description = get_valid_description()
+    transaction_type = get_valid_type()
+    amount = get_valid_amount()
 
     transaction = {
         "Description": description,
@@ -12,6 +14,7 @@ def add_transaction():
     }
 
     transactions.append(transaction)
+    save_data(transactions)
 
 def list_transaction(condition):
     if condition not in ("R", "D", "T"):
@@ -35,3 +38,4 @@ def list_transaction(condition):
             f"{number}. {transaction['Description']} | "
             f"{tipo} | {sinal} R$ {transaction['Amount']:.2f}"
         )
+
