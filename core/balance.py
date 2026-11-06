@@ -1,5 +1,5 @@
 from core.transaction import transactions
-
+from utils.formatters import format_balance
 
 def check_balance():
     current_balance = update_balance()
@@ -16,9 +16,6 @@ def update_balance():
             balance -= transaction["Amount"]
 
     return balance
-
-def format_balance(value):
-    return f"R${value:.2f}"
 
 
 

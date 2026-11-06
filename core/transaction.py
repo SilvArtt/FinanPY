@@ -1,4 +1,4 @@
-from core.json import load_data,save_data
+from storage.json_storage import load_data,save_data
 from utils.formatters import *
 transactions = load_data()
 
@@ -6,11 +6,15 @@ def add_transaction():
     description = get_valid_description()
     transaction_type = get_valid_type()
     amount = get_valid_amount()
+    category = get_valid_category(transaction_type)
+    date = format_date()
 
     transaction = {
         "Description": description,
         "Type": transaction_type,
-        "Amount": amount
+        "Amount": amount,
+        "Category": category,
+        "Date": date
     }
 
     transactions.append(transaction)
@@ -32,10 +36,14 @@ def list_transaction(condition):
         return
 
     for number, transaction in enumerate(transactions_found,start=1):
-        tipo = "Receita" if transaction["Type"] == "R" else "Despesa"
-        sinal = '+' if transaction["Type"] == "R" else '-'
+        tipo = {"R": "Receita", "D": "Despesa"}.get(transaction["Type"], "Desconhecido")
+        sinal = {"R": "+", "D": "-"}.get(transaction["Type"], "?")
+        description = transaction["Description"]
+        amount = transaction["Amount"]
+        category = transaction.get("Category") or "N/A"
+        date = transaction.get("Date") or "N/A"
+
         print(
-            f"{number}. {transaction['Description']} | "
-            f"{tipo} | {sinal} R$ {transaction['Amount']:.2f}"
+            f"{number}. {date} | {description} | {tipo} | {sinal} R$ {amount:.2f} | Categoria: {category}"
         )
 

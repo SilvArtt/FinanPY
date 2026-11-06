@@ -1,3 +1,5 @@
+from datetime import datetime
+
 def get_valid_type(tipo=""):
     while tipo not in ["R", "D"]:
         tipo = input("Digite o tipo (R para Receita / D para Despesa): ")
@@ -22,6 +24,47 @@ def get_valid_description(description=""):
         description = input("descreva sua transação: ").upper().strip()
     return description
 
+def get_valid_category(transaction_type):
+    r_category = {
+         1:"SALÁRIO",
+         2:"FREELANCE/EXTRA",
+         3:"INVESTIMENTOS",
+         4:"PRESENTES",
+         5:"OUTROS"
+    }
+    d_category = {
+         1: "ALIMENTAÇÃO",
+         2: "MORADIA",
+         3: "TRANSPORTE",
+         4: "SAÚDE",
+         5: "LAZER",
+         6: "EDUCAÇÃO",
+         7: "VESTUÁRIO",
+         8: "OUTROS"
+    }
+
+    categories = r_category if transaction_type == "R" else d_category if transaction_type == "D" else None
+
+    if not categories:
+        print("Erro: Tipo de transação invalida!")
+        return "N/A"
+
+    while True:
+        print("\nSelecione a categoria:")
+        for key,value in categories.items():
+            print(f"{key}: {value.title()}")
+        try:
+            category = int(input("Digite o número da categoria: "))
+
+            if category in categories:
+                return categories[category]
+            print("Erro: Categoria inválida! Escolha um número da lista.")
+        except ValueError:
+            print("Erro: Entrada inválida! Digite apenas números inteiros.")
+
+
+
+
 def get_valid_option():
     while True:
         try:
@@ -33,3 +76,9 @@ def get_valid_option():
             print("Erro, selecione uma opção de [0] a [3].")
             continue
         return op
+
+def format_balance(value):
+    return f"R${value:.2f}"
+
+def format_date():
+    return datetime.now().strftime("%d/%m/%Y %H:%M")
