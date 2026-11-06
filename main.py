@@ -2,6 +2,7 @@ from core.balance import check_balance
 from core.report import monthly_report
 from core.transaction import *
 from utils.formatters import get_valid_option
+from utils.clean import clean_terminal
 import logging
 
 logging.basicConfig(
@@ -14,6 +15,8 @@ isRunning = True
 
 if __name__ == '__main__':
    while isRunning:
+       clean_terminal()
+       
        print("=" * 32)
        print("       FinanPY")
        print(f"      Saldo Atual: R$ {check_balance()}")
