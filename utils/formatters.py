@@ -1,4 +1,5 @@
 from datetime import datetime
+import re
 
 def get_valid_type(tipo=""):
     while tipo not in ["R", "D"]:
@@ -6,18 +7,41 @@ def get_valid_type(tipo=""):
         tipo = tipo.upper().strip()
     return tipo
 
+AMOUNT_PATTERN = re.compile(r"^\d+([.,]\d{1,2})?$")
+
 def get_valid_amount():
     while True:
+        value = input("Digite o valor: ").strip()
+
+        if not AMOUNT_PATTERN.fullmatch(value):
+            print("Valor invalido, Apenas números, com até 2 casas decimais!")
+            continue
+
         try:
-            amount = float(input(f"Digite o valor: "))
+            amount = float(value.replace(",", "."))
         except ValueError:
             print("Valor invalido, Digite um número!")
             continue
 
         if amount <= 0:
-            print("Valor invalido, Não aceitamos números abaixo ou igual á zero!")
+            print("Valor inválido. Não aceitamos valores menores ou iguais a zero.")
             continue
+
         return amount
+
+MONTH_PATTERN = re.compile(r"^(0[1-9]|1[0-2])/\d{4}$")
+
+def get_valid_month():
+    while True:
+        month = input("Qual mês/ano deseja consultar (MM/AAAA)?:").strip()
+
+        if not MONTH_PATTERN.fullmatch(month):
+            print("Formato Invalido!, Formato Aceito: (MM/AAAA), ex: (01/2010)")
+            continue
+
+        return month
+
+
 
 def get_valid_description(description=""):
     while not description or len(description) > 255:
@@ -61,9 +85,6 @@ def get_valid_category(transaction_type):
             print("Erro: Categoria inválida! Escolha um número da lista.")
         except ValueError:
             print("Erro: Entrada inválida! Digite apenas números inteiros.")
-
-
-
 
 def get_valid_option():
     while True:
