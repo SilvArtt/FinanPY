@@ -1,10 +1,9 @@
 from core.transaction import transactions
-
+from utils.formatters import format_balance
 
 def check_balance():
     current_balance = update_balance()
     print(f"Saldo: {format_balance(current_balance)}")
-    input("Pressione ENTER para Continuar...")
 
 def update_balance():
     balance = 0
@@ -16,9 +15,6 @@ def update_balance():
             balance -= transaction["Amount"]
 
     return balance
-
-def format_balance(value):
-    return f"R${value:.2f}"
 
 
 
