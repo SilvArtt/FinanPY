@@ -1,6 +1,6 @@
 from core.transaction import transactions
 from utils.formatters import get_valid_month
-
+import logging
 
 def monthly_report():
     month_balance = 0.0

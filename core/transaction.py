@@ -1,5 +1,6 @@
 from storage.json_storage import load_data,save_data
 from utils.formatters import *
+import logging
 transactions = load_data()
 
 def add_transaction():
@@ -19,6 +20,8 @@ def add_transaction():
 
     transactions.append(transaction)
     save_data(transactions)
+
+    logging.info(f"Nova transação adicionada: {description} - R$ {amount}")
 
 def list_transaction(condition):
     if condition not in ("R", "D", "T"):

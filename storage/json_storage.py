@@ -1,4 +1,5 @@
 import json
+import logging
 
 def load_data():
     try:
@@ -9,6 +10,7 @@ def load_data():
         return []
     except json.decoder.JSONDecodeError:
         print("Erro: Os dados da transações não foram lidos ou corromperam")
+        logging.error("Falha ao ler o arquivo JSON: Arquivo corrompido.")
         return []
 
 def save_data(transactions):
@@ -17,3 +19,4 @@ def save_data(transactions):
             json.dump(transactions, file, indent=4, ensure_ascii=False)
     except Exception as e:
         print(f"a transação foi adicionada à memória, mas não foi salva no disco. Erro: {e}")
+        logging.error(f"Falha crítica ao salvar o JSON: {e}")

@@ -2,6 +2,14 @@ from core.balance import check_balance
 from core.report import monthly_report
 from core.transaction import *
 from utils.formatters import get_valid_option
+import logging
+
+logging.basicConfig(
+    filename='finanpy.log',
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+
 isRunning = True
 
 if __name__ == '__main__':

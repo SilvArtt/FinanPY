@@ -1,10 +1,12 @@
 from datetime import datetime
-import re
+import re,logging
 
 def get_valid_type(tipo=""):
     while tipo not in ["R", "D"]:
-        tipo = input("Digite o tipo (R para Receita / D para Despesa): ")
-        tipo = tipo.upper().strip()
+        tipo = input("Digite o tipo (R para Receita / D para Despesa): ").upper().strip()
+
+        if tipo not in ["R", "D"]:
+            logging.warning(f"Tentativa de tipo inválido: {tipo}")
     return tipo
 
 AMOUNT_PATTERN = re.compile(r"^\d+([.,]\d{1,2})?$")
@@ -15,6 +17,7 @@ def get_valid_amount():
 
         if not AMOUNT_PATTERN.fullmatch(value):
             print("Valor invalido, Apenas números, com até 2 casas decimais!")
+            logging.warning(f"Tentativa de valor inválido: {value}")
             continue
 
         try:
@@ -37,11 +40,10 @@ def get_valid_month():
 
         if not MONTH_PATTERN.fullmatch(month):
             print("Formato Invalido!, Formato Aceito: (MM/AAAA), ex: (01/2010)")
+            logging.warning(f"Tentativa de mês inválido: {month}")
             continue
 
         return month
-
-
 
 def get_valid_description(description=""):
     while not description or len(description) > 255:
@@ -83,8 +85,10 @@ def get_valid_category(transaction_type):
             if category in categories:
                 return categories[category]
             print("Erro: Categoria inválida! Escolha um número da lista.")
+            logging.warning(f"Tentativa de categoria inválida: {category}")
         except ValueError:
             print("Erro: Entrada inválida! Digite apenas números inteiros.")
+            logging.warning("Tentativa de cadastro com categoria inválida (não numérica).")
 
 def get_valid_option():
     while True:
@@ -92,9 +96,11 @@ def get_valid_option():
             op = int(input("Escolha uma Opção [1] a [3], [0] para sair: "))
         except ValueError:
             print("Opção Invalida! digite apenas números!")
+            logging.warning("Tentativa de opção de menu inválida (não numérica).")
             continue
         if not 0 <= op <= 3:
             print("Erro, selecione uma opção de [0] a [3].")
+            logging.warning(f"Opção de menu fora do intervalo: {op}")
             continue
         return op
 
