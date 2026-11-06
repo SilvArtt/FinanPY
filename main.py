@@ -1,4 +1,5 @@
 from core.balance import check_balance
+from core.report import monthly_report
 from core.transaction import *
 from utils.formatters import get_valid_option
 isRunning = True
@@ -30,7 +31,7 @@ if __name__ == '__main__':
                list_transaction(opt)
                input("Pressione ENTER para Continuar...")
            case 3:
-               pass
+               monthly_report()
            case 0:
                print("Saiu do programa!")
                isRunning = False

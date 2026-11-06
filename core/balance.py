@@ -4,7 +4,6 @@ from utils.formatters import format_balance
 def check_balance():
     current_balance = update_balance()
     print(f"Saldo: {format_balance(current_balance)}")
-    input("Pressione ENTER para Continuar...")
 
 def update_balance():
     balance = 0
