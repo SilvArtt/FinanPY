@@ -1,10 +1,12 @@
 from core.transaction import transactions
+from utils.formatters import get_valid_month
+import logging
 
 def monthly_report():
     month_balance = 0.0
     count = 0
 
-    selected_month = input("Qual mês/ano deseja consultar (formato MM/AAAA, ex: 11/2026)?: ").strip()
+    selected_month = get_valid_month()
 
     for transaction in transactions:
         if selected_month in transaction.get("Date", "N/A"):

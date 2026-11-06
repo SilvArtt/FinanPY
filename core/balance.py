@@ -3,7 +3,7 @@ from utils.formatters import format_balance
 
 def check_balance():
     current_balance = update_balance()
-    print(f"Saldo: {format_balance(current_balance)}")
+    return format_balance(current_balance)
 
 def update_balance():
     balance = 0
